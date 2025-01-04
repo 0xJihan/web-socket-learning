@@ -13,11 +13,19 @@ app.get('/', (req, res) => {
 
 
 io.on('connection', (socket) => {
-
     console.log('Client connected');
 
+
+    socket.on('profile',function (data) {
+        console.log(data);
+        const name = data.name;
+        const age = data.age;
+        console.log("Name: " + name+", Age: " + age);
+    })
+
+
     socket.on('disconnect', () => {
-        console.log('Client disconnected');
+        console.log('Client disconnected\n\n');
     })
 })
 

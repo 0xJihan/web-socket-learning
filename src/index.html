@@ -8,12 +8,34 @@
 
 <h1>Learning Web Socket</h1>
 
+<input type="text" id="name" placeholder="Enter your name:">
+<br>
+<br>
+<input type="number" id="age" placeholder="Enter your age:">
+<br>
+<br>
+<button id="button">Submit</button>
+
 </body>
 
 
 <script src="socket.io/socket.io.js"></script>
 <script>
     let socket = io();
+
+    const button = document.getElementById('button');
+    button.addEventListener('click', () => {
+        send()
+    })
+
+
+    function send() {
+        const name = document.getElementById('name').value;
+        const age = document.getElementById('age').value;
+            const array = [name, age];
+            socket.emit('profile',array);
+    }
+
 </script>
 
 </html>
