@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<h1>Learning Web Socket</h1>
+<h1 id="title">Learning Web Socket</h1>
 
 <input type="text" id="name" placeholder="Enter your name:">
 <br>
@@ -21,20 +21,16 @@
 
 <script src="socket.io/socket.io.js"></script>
 <script>
-    let socket = io();
-
-    const button = document.getElementById('button');
-    button.addEventListener('click', () => {
-        send()
-    })
+    let socket = io('/sell');
 
 
-    function send() {
-        const name = document.getElementById('name').value;
-        const age = document.getElementById('age').value;
-            const array = [name, age];
-            socket.emit('profile',array);
-    }
+    const title = document.getElementById('title');
+    socket.on('message', function (data) {
+        title.innerText = data;
+    });
+
+
+
 
 </script>
 

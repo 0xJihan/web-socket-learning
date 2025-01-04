@@ -12,22 +12,31 @@ app.get('/', (req, res) => {
 });
 
 
-io.on('connection', (socket) => {
-    console.log('Client connected');
 
 
-    socket.on('profile',function (data) {
-        console.log(data);
-        const name = data.name;
-        const age = data.age;
-        console.log("Name: " + name+", Age: " + age);
-    })
-
+const sellNms = io.of('/sell');
+sellNms.on('connection', (socket) => {
+    console.log('seller connection');
+    socket.send('Hi, from seller');
 
     socket.on('disconnect', () => {
-        console.log('Client disconnected\n\n');
+        console.log('seller disconnect');
     })
-})
+
+});
+
+const buyNms = io.of('/buy');
+buyNms.on('connection', (socket) => {
+
+    console.log('buyer connection');
+    socket.send('Hi, from BUYER');
+
+    socket.on('disconnect', () => {
+        console.log('buyer disconnect');
+    })
+
+});
+
 
 
 
