@@ -8,37 +8,24 @@ const io = new Server(expressServer);
 
 
 app.get('/', (req, res) => {
-    res.sendfile(__dirname + '/index.html');
+    res.sendFile(__dirname + '/index.html');
 });
 
 
+io.on('connection', (socket) => {
+    console.log('Client connected');
 
 
-const sellNms = io.of('/sell');
-sellNms.on('connection', (socket) => {
-    console.log('seller connection');
-    socket.send('Hi, from seller');
+    socket.on('chat', (msg) => {
+        console.log(msg)
+        socket.emit('chat_received',msg);
+    });
+
 
     socket.on('disconnect', () => {
-        console.log('seller disconnect');
+        console.log('Client disconnected');
     })
-
-});
-
-const buyNms = io.of('/buy');
-buyNms.on('connection', (socket) => {
-
-    console.log('buyer connection');
-    socket.send('Hi, from BUYER');
-
-    socket.on('disconnect', () => {
-        console.log('buyer disconnect');
-    })
-
-});
-
-
-
+})
 
 
 
