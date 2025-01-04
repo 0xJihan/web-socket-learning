@@ -16,11 +16,20 @@ io.on('connection', (socket) => {
     console.log('Client connected');
 
 
+    socket.join('RoomA')
+    const roomSize = io.sockets.adapter.rooms.get('RoomA').size;
+    io.sockets.in('RoomA').emit('room_msg',`${roomSize} people are joined in RoomA`);
+
+
+
+
+
+
+
     socket.on('chat', (msg) => {
         console.log(msg)
         socket.emit('chat_received',msg);
     });
-
 
     socket.on('disconnect', () => {
         console.log('Client disconnected');

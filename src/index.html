@@ -66,6 +66,8 @@
 
 <body>
 
+<h1 id="title">Learning Web Sockets</h1>
+
 <br>
 <div class="container">
 
@@ -120,6 +122,12 @@
 
     const inputBox = document.getElementById("message");
     const list = document.getElementById("list");
+    const title = document.getElementById("title");
+
+    socket.on('room_msg', function (data) {
+       title.innerText = data;
+    });
+
 
     socket.on('chat_received', function (data) {
        const listItem = document.createElement("li");
